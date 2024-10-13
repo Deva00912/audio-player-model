@@ -16,7 +16,7 @@ export default function Home(props) {
   useEffect(() => {
     const fetchPrograms = async () => {
       if (!isFetching) setIsFetching(true);
-      const response = await fetchProgramsPagination(1, 7);
+      const response = await fetchProgramsPagination(1, 8);
 
       setPrograms(response);
       localStorage.setItem("programs", JSON.stringify(response));
@@ -62,7 +62,6 @@ export default function Home(props) {
                   <PlanCard
                     data={program}
                     onClick={() => {
-                      console.log({ program });
                       props.navigate(`plan/${program?._id}`);
                     }}
                   />

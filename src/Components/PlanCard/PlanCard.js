@@ -3,7 +3,6 @@ import "./PlanCard.css";
 import { LockIcon } from "../../Assets/Icon";
 
 export default function PlanCard(props) {
-  // console.log("props :>> ", props);
   return (
     <div
       className={` display-flex height-10-percentage overflow-hidden border-radius-default  ${props?.className}`}

@@ -132,7 +132,7 @@ export const BackIcon = (props) => {
       <g data-name="arrow left" id="arrow_left">
         <path
           className="cls-1"
-          style={{ fill: "orange" }}
+          style={{ fill: props?.color }}
           d="M22,29.73a1,1,0,0,1-.71-.29L9.93,18.12a3,3,0,0,1,0-4.24L21.24,2.56A1,1,0,1,1,22.66,4L11.34,15.29a1,1,0,0,0,0,1.42L22.66,28a1,1,0,0,1,0,1.42A1,1,0,0,1,22,29.73Z"
         />
       </g>
@@ -219,6 +219,8 @@ export const AudioLoading = (props) => {
 export const RewindIcon = (props) => {
   return (
     <svg
+      height={props?.height || "16px"}
+      width={props?.width || "16px"}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 64 64"
       strokeWidth="3"
@@ -245,6 +247,8 @@ export const RewindIcon = (props) => {
 export const ForwardIcon = (props) => {
   return (
     <svg
+      height={props?.height || "16px"}
+      width={props?.width || "16px"}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 64 64"
       strokeWidth="3"

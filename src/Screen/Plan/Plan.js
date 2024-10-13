@@ -95,7 +95,7 @@ export default function Plan(props) {
           props.navigate("/");
         }}
       >
-        <BackIcon />
+        <BackIcon color="orange" />
       </div>
     </div>
   );

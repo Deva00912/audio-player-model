@@ -4,8 +4,10 @@ import {
   AudioLoading,
   BackIcon,
   CloseIcon,
+  ForwardIcon,
   PauseIcon,
   PlayIcon,
+  RewindIcon,
 } from "../../Assets/Icon";
 import { getTrack } from "../../Services/Service";
 import "./Track.css";
@@ -52,7 +54,7 @@ export default function Track(props) {
             props.navigate(`plan/${src?.program}`);
           }}
         >
-          <BackIcon />
+          <BackIcon color="black" />
         </div>
 
         <div
@@ -65,11 +67,11 @@ export default function Track(props) {
       </div>
       <div className="display-flex flex-direction-column flex-justify-content-space-between inherit-parent-height">
         <div className=" inherit-parent-width display-flex flex-direction-column padding-vertical-large font-color-white flex-align-items-center">
-          <div className=" padding-vertical-default font-size-default ">
+          <div className=" padding-vertical-default font-size-default font-color-secondary font-weight-400 ">
             {src?.title}
           </div>
 
-          <div className=" padding-vertical-default font-size-medium ">
+          <div className=" padding-vertical-default font-size-medium font-color-secondary">
             {src?.description}
           </div>
         </div>
@@ -243,6 +245,14 @@ const AudioPlayer = (props) => {
         </div>
         <div className="inherit-parent-width flex-justify-content-center flex-align-items-end">
           {loading && <AudioLoading height={60} width={60} />}
+          <div
+            className=" padding-left-default padding-right-default  cursor-pointer"
+            onClick={() => {
+              setCurrentTime((currentTime) => currentTime - 10);
+            }}
+          >
+            <RewindIcon height="45px" width="45px" />
+          </div>
 
           {!loading && play && (
             <div
@@ -265,6 +275,15 @@ const AudioPlayer = (props) => {
               <PlayIcon height={60} width={60} />
             </div>
           )}
+
+          <div
+            className=" padding-left-default padding-right-default cursor-pointer"
+            onClick={() => {
+              setCurrentTime((currentTime) => currentTime + 10);
+            }}
+          >
+            <ForwardIcon height="45px" width="45px" />
+          </div>
         </div>
       </div>
     </div>
