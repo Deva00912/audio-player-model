@@ -61,7 +61,7 @@ export const DashedCircleIcon = (props) => {
         stroke="#000"
         strokeLinecap="round"
         strokeLinejoin="round"
-        stroke-width="8"
+        strokeWidth="8"
         d="M35.25567 103.14925a95.55835 95.55835 0 0 1 24.86208-43.0315M60.10646 195.89357a95.55822 95.55822 0 0 1-24.83534-43.04694M152.85078 220.74432a95.55827 95.55827 0 0 1-49.69741-.01544M220.74433 152.85075a95.55835 95.55835 0 0 1-24.86208 43.0315M195.89354 60.10643a95.55822 95.55822 0 0 1 24.83534 43.04694M103.14922 35.25568a95.55827 95.55827 0 0 1 49.69741.01544"
       ></path>
     </svg>
@@ -132,7 +132,7 @@ export const BackIcon = (props) => {
       <g data-name="arrow left" id="arrow_left">
         <path
           className="cls-1"
-          style={{ fill: "#231f20" }}
+          style={{ fill: "orange" }}
           d="M22,29.73a1,1,0,0,1-.71-.29L9.93,18.12a3,3,0,0,1,0-4.24L21.24,2.56A1,1,0,1,1,22.66,4L11.34,15.29a1,1,0,0,0,0,1.42L22.66,28a1,1,0,0,1,0,1.42A1,1,0,0,1,22,29.73Z"
         />
       </g>
@@ -153,14 +153,14 @@ export const PlayIcon = (props) => {
         fill="white"
         stroke="white"
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       />
 
       <g id="SVGRepo_iconCarrier">
         <g>
           <path
-            class="st0"
+            className="st0"
             style={{ fill: "black" }}
             d="M256,0C114.625,0,0,114.625,0,256c0,141.374,114.625,256,256,256c141.374,0,256-114.626,256-256 C512,114.625,397.374,0,256,0z M351.062,258.898l-144,85.945c-1.031,0.626-2.344,0.657-3.406,0.031 c-1.031-0.594-1.687-1.702-1.687-2.937v-85.946v-85.946c0-1.218,0.656-2.343,1.687-2.938c1.062-0.609,2.375-0.578,3.406,0.031 l144,85.962c1.031,0.586,1.641,1.718,1.641,2.89C352.703,257.187,352.094,258.297,351.062,258.898z"
           />{" "}
@@ -181,7 +181,7 @@ export const PauseIcon = (props) => {
     >
       <g
         id="SVGRepo_tracerCarrier"
-        stroke-linecap="round"
+        strokeLinecap="round"
         stroke-linejoin="round"
       />
 
@@ -212,6 +212,58 @@ export const AudioLoading = (props) => {
         cy="33"
         r="30"
       ></circle>
+    </svg>
+  );
+};
+
+export const RewindIcon = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 64 64"
+      strokeWidth="3"
+      stroke="currentColor"
+      fill="none"
+    >
+      <polyline
+        points="9.57 15.41 12.17 24.05 20.81 21.44"
+        strokeLinecap="round"
+      />
+      <path
+        d="M26.93,41.41V23a.09.09,0,0,0-.16-.07s-2.58,3.69-4.17,4.78"
+        strokeLinecap="round"
+      />
+      <rect x="32.19" y="22.52" width="11.41" height="18.89" rx="5.7" />
+      <path
+        d="M12.14,23.94a21.91,21.91,0,1,1-.91,13.25"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+};
+
+export const ForwardIcon = (props) => {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 64 64"
+      strokeWidth="3"
+      stroke="currentColor"
+      fill="none"
+    >
+      <path
+        d="M23.93,41.41V23a.09.09,0,0,0-.16-.07s-2.58,3.69-4.17,4.78"
+        strokeLinecap="round"
+      />
+      <rect x="29.19" y="22.52" width="11.41" height="18.89" rx="5.7" />
+      <polyline
+        points="54.43 15.41 51.83 24.05 43.19 21.44"
+        strokeLinecap="round"
+      />
+      <path
+        d="M51.86,23.94a21.91,21.91,0,1,0,.91,13.25"
+        strokeLinecap="round"
+      />
     </svg>
   );
 };

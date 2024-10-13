@@ -10,7 +10,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home navigate={navigate} />} />
         <Route
-          path="/track/:id"
+          path="/track/:trackId"
           element={
             <Track
               data={{ title: "Title", description: "Description" }}
@@ -19,7 +19,7 @@ function App() {
             />
           }
         />
-        <Route path="/plan/:id" element={<Plan navigate={navigate} />} />
+        <Route path="/plan/:planId" element={<Plan navigate={navigate} />} />
       </Routes>
     </>
   );

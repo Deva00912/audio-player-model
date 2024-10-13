@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import sampleAudio from "../../Assets/Sample.mp3";
+// import sampleAudio from "../../Assets/Sample.mp3";
 import {
   AudioLoading,
   BackIcon,
@@ -7,45 +7,70 @@ import {
   PauseIcon,
   PlayIcon,
 } from "../../Assets/Icon";
-import { fetchProgramsPagination } from "../../Services/Service";
+import { getTrack } from "../../Services/Service";
 import "./Track.css";
-import { isValidObject } from "../../Services/Utils";
+import { isValidArray, isValidObject } from "../../Services/Utils";
+import { useParams } from "react-router-dom";
 
 export default function Track(props) {
+  const [programs] = useState(
+    Object.values(JSON.parse(localStorage.getItem("programs")))?.length > 0
+      ? JSON.parse(localStorage.getItem("programs"))?.programs
+      : []
+  );
   const [src, setSrc] = useState(null);
-  useEffect(() => {
-    const fetchProgram = async () => {
-      const response = await fetchProgramsPagination();
+  const { trackId } = useParams();
 
-      console.log({ response: response });
+  useEffect(() => {
+    const fetchTrack = async () => {
+      const response = await getTrack(trackId);
+
       setSrc(response);
     };
 
-    // fetchProgram();
+    fetchTrack();
+    // eslint-disable-next-line
   }, []);
 
   return (
     <div
       className=" padding-larger inherit-parent-height inherit-parent-width display flex flex-direction-column "
       style={{
-        backgroundImage: `url(${src?.programs?.[0]?.imageUrl})`,
+        backgroundImage: `url(${
+          isValidArray(programs) &&
+          programs?.filter((program) => program?._id === src?.program)?.[0]
+            ?.imageUrl
+        })`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         position: "relative",
       }}
     >
       <div className=" inherit-parent-width height-fit-to-content display-flex flex-justify-content-space-between">
-        <BackIcon />
-        <CloseIcon />
+        <div
+          onClick={() => {
+            props.navigate(`plan/${src?.program}`);
+          }}
+        >
+          <BackIcon />
+        </div>
+
+        <div
+          onClick={() => {
+            props.navigate(`plan/${src?.program}`);
+          }}
+        >
+          <CloseIcon />
+        </div>
       </div>
       <div className="display-flex flex-direction-column flex-justify-content-space-between inherit-parent-height">
         <div className=" inherit-parent-width display-flex flex-direction-column padding-vertical-large font-color-white flex-align-items-center">
           <div className=" padding-vertical-default font-size-default ">
-            {props?.data?.title}
+            {src?.title}
           </div>
 
           <div className=" padding-vertical-default font-size-medium ">
-            {props.data?.description}
+            {src?.description}
           </div>
         </div>
 
@@ -53,31 +78,9 @@ export default function Track(props) {
           className=" inherit-parent-width 
       display-flex flex-align-items-center flex-justify-content-center"
         >
-          {/* <ReactAudioPlayer
-            autoPlay
-            preload
-            crossOrigin
-            controls
-            style={{
-              width: "100%",
-              backgroundColor: "transparent",
-            }}
-            src={props?.audioUrl}
-            onPlay={(e) => console.log("onPlay")}
-          /> */}
-          {console.log(sampleAudio, "sampleAudio")}
-          <AudioPlayer src={sampleAudio} duration={0} />
+          <AudioPlayer src={src?.audioUrl} duration={src?.duration} />
         </div>
       </div>
-
-      {/* <img
-        src={src?.programs?.[0]?.imageUrl}
-        alt="image-check"
-        style={{
-          width: "100%",
-          height: "60%",
-        }}
-      /> */}
     </div>
   );
 }
@@ -175,16 +178,8 @@ const AudioPlayer = (props) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.src]);
 
-  function convertToSeconds(timeString) {
-    if (timeString) {
-      const [minutes, seconds] = timeString.split(":").map(Number);
-      return minutes * 60 + seconds;
-    }
-  }
-
   useEffect(() => {
-    const value = (currentTime / 133) * 100;
-    console.log(value, "value");
+    const value = (currentTime / props?.duration) * 100;
     const element = document.getElementById("seek-slider");
     element.style.background = `linear-gradient(to right, black ${value}%, rgb(110, 110, 110) ${value}%)`;
     // eslint-disable-next-line
@@ -209,7 +204,6 @@ const AudioPlayer = (props) => {
           value={currentTime}
           onChange={(event) => {
             const value = (event.target.value / event.target.max) * 100;
-            console.log(value, "value");
             event.target.style.background = `linear-gradient(to right, black ${value}%, rgb(110, 110, 110) ${value}%)`;
             audio.current.currentTime = event.target.value;
           }}
@@ -238,7 +232,13 @@ const AudioPlayer = (props) => {
             className="font-color-secondary font-size-small white-space-nowWrap audio-duration-content-size font-family-gilroy-regular"
             data-cy="audio-player-duration"
           >
-            {props.duration || "0:00"}
+            {props?.duration > 0
+              ? `${Math.floor(props?.duration / 60)}:${
+                  Math.ceil(props?.duration % 60) > 9
+                    ? Math.ceil(props?.duration % 60)
+                    : "0" + Math.ceil(props?.duration % 60)
+                }`
+              : "0:00"}
           </div>
         </div>
         <div className="inherit-parent-width flex-justify-content-center flex-align-items-end">

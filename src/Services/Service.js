@@ -1,25 +1,40 @@
 export const fetchProgramsPagination = async (start = 1, end = 3) => {
-  console.log(
-    "process.env.REACT_APP_baseUrl :>> ",
-    process.env.REACT_APP_baseUrl
-  );
-  const response = await fetch(
-    `${process.env.REACT_APP_baseUrl}programs?page=${start}&limit=${end}`
-  );
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_baseUrl}programs?page=${start}&limit=${end}`
+    );
 
-  return await response.json();
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getTrack = async (trackId) => {
-  const response = await fetch(`tracks/${trackId}`);
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_baseUrl}tracks/${trackId}`
+    );
 
-  return await response.json();
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    const res = await response.json();
+    return res;
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getProgram = async (programId) => {
-  const response = await fetch(
-    `${process.env.REACT_APP_baseUrl}programs/${programId}`
-  );
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_baseUrl}programs/${programId}`
+    );
 
-  return await response.json();
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
 };

@@ -5,8 +5,12 @@ import PlanCard from "../../Components/PlanCard/PlanCard";
 import Header from "../../Components/Header/Header";
 
 export default function Home(props) {
-  console.log("props :>> ", props);
-  const [programs, setPrograms] = useState(null);
+  const [programs, setPrograms] = useState(
+    localStorage.getItem("programs")
+      ? JSON.parse(localStorage.getItem("programs"))
+      : []
+  );
+
   const [isFetching, setIsFetching] = useState(true);
 
   useEffect(() => {
@@ -15,14 +19,17 @@ export default function Home(props) {
       const response = await fetchProgramsPagination(1, 7);
 
       setPrograms(response);
+      localStorage.setItem("programs", JSON.stringify(response));
 
       setIsFetching(false);
     };
-    fetchPrograms();
+
+    if (!isValidArray(programs)) {
+      fetchPrograms();
+    }
+
     // eslint-disable-next-line
   }, []);
-
-  console.log("programs :>> ", programs);
 
   return (
     <>
@@ -56,7 +63,7 @@ export default function Home(props) {
                     data={program}
                     onClick={() => {
                       console.log({ program });
-                      props.navigate(`track/:${program?._id}`);
+                      props.navigate(`plan/${program?._id}`);
                     }}
                   />
                 ))}
