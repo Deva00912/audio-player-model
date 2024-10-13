@@ -8,9 +8,18 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} navigate={navigate} />
-        <Route path="/track" element={<Track />} navigate={navigate} />
-        <Route path="/plan" element={<Plan />} navigate={navigate} />
+        <Route path="/" element={<Home navigate={navigate} />} />
+        <Route
+          path="/track/:id"
+          element={
+            <Track
+              data={{ title: "Title", description: "Description" }}
+              audioUrl="http://streaming.tdiradio.com:8000/house.mp3"
+              navigate={navigate}
+            />
+          }
+        />
+        <Route path="/plan/:id" element={<Plan navigate={navigate} />} />
       </Routes>
     </>
   );
