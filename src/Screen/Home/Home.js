@@ -11,17 +11,17 @@ export default function Home(props) {
       : []
   );
 
-  const [isFetching, setIsFetching] = useState(true);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchPrograms = async () => {
-      if (!isFetching) setIsFetching(true);
+      if (!loading) setLoading(true);
       const response = await fetchProgramsPagination(1, 8);
 
       setPrograms(response);
       localStorage.setItem("programs", JSON.stringify(response));
 
-      setIsFetching(false);
+      setLoading(false);
     };
 
     if (!isValidArray(programs)) {
@@ -33,41 +33,49 @@ export default function Home(props) {
 
   return (
     <>
-      <div className="inherit-parent-height inherit-parent-width  flex-direction-column ">
+      <div className="inherit-parent-height inherit-parent-width  flex-direction-column overflow-hidden">
         <Header />
         <div
           style={{
             height: "calc(100% - 59px)",
+            overflow: "scroll",
           }}
-          className="padding-large"
+          className="padding-large hide-scrollbar"
         >
-          {isFetching && (
-            <div className=" display-flex flex-justify-content-center flex-align-items-center font-size-default inherit-parent-height inherit-parent-width">
-              {" "}
-              Fetching your plans
-            </div>
-          )}
+          {console.log(Array(12))}
 
-          {!isFetching && (
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "auto auto",
-                gridColumnGap: "20px",
-                gridRowGap: "20px",
-              }}
-            >
-              {isValidArray(programs?.programs) &&
-                programs?.programs.map((program) => (
-                  <PlanCard
-                    data={program}
-                    onClick={() => {
-                      props.navigate(`plan/${program?._id}`);
-                    }}
-                  />
-                ))}
-            </div>
-          )}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "auto auto",
+              gridColumnGap: "20px",
+              gridRowGap: "20px",
+              justifyContent: "space-evenly",
+            }}
+          >
+            {loading &&
+              [...Array(12).keys()].map((element) => (
+                <div
+                  style={{
+                    borderRadius: "8px",
+                    width: "160px",
+                    height: "160px",
+                    objectFit: "cover",
+                  }}
+                  className=" shimmer"
+                />
+              ))}
+            {!loading &&
+              isValidArray(programs?.programs) &&
+              programs?.programs.map((program) => (
+                <PlanCard
+                  data={program}
+                  onClick={() => {
+                    props.navigate(`plan/${program?._id}`);
+                  }}
+                />
+              ))}
+          </div>
         </div>
       </div>
     </>

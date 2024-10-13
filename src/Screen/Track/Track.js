@@ -36,51 +36,67 @@ export default function Track(props) {
 
   return (
     <div
-      className=" padding-larger inherit-parent-height inherit-parent-width display flex flex-direction-column "
+      className="inherit-parent-height inherit-parent-width overflow-hidden"
       style={{
-        backgroundImage: `url(${
-          isValidArray(programs) &&
-          programs?.filter((program) => program?._id === src?.program)?.[0]
-            ?.imageUrl
-        })`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
         position: "relative",
       }}
     >
-      <div className=" inherit-parent-width height-fit-to-content display-flex flex-justify-content-space-between">
-        <div
-          onClick={() => {
-            props.navigate(`plan/${src?.program}`);
-          }}
-        >
-          <BackIcon color="black" />
-        </div>
-
-        <div
-          onClick={() => {
-            props.navigate(`plan/${src?.program}`);
-          }}
-        >
-          <CloseIcon />
-        </div>
-      </div>
-      <div className="display-flex flex-direction-column flex-justify-content-space-between inherit-parent-height">
-        <div className=" inherit-parent-width display-flex flex-direction-column padding-vertical-large font-color-white flex-align-items-center">
-          <div className=" padding-vertical-default font-size-default font-color-secondary font-weight-400 ">
-            {src?.title}
+      <img
+        alt="background"
+        src={`${
+          isValidArray(programs) &&
+          programs?.filter((program) => program?._id === src?.program)?.[0]
+            ?.imageUrl
+        }`}
+        style={{
+          height: "100%",
+          width: "100%",
+          objectFit: "cover",
+        }}
+      />
+      <div
+        style={{
+          position: "absolute",
+          top: "0px",
+        }}
+        className="z-index-1 inherit-parent-height inherit-parent-width padding-larger"
+      >
+        <div className=" inherit-parent-width height-fit-to-content display-flex flex-justify-content-space-between">
+          <div
+            style={{ width: "20px", height: "20px" }}
+            onClick={() => {
+              props.navigate(`plan/${src?.program}`);
+            }}
+          >
+            <BackIcon color="black" height="20" width="20" />
           </div>
 
-          <div className=" padding-vertical-default font-size-medium font-color-secondary">
-            {src?.description}
+          <div
+            style={{ width: "24px", height: "24px" }}
+            onClick={() => {
+              props.navigate(`plan/${src?.program}`);
+            }}
+          >
+            <CloseIcon height="28" width="28" />
           </div>
         </div>
+        <div className="display-flex flex-direction-column flex-justify-content-space-between inherit-parent-height">
+          <div className=" inherit-parent-width display-flex flex-direction-column padding-vertical-large font-color-white flex-align-items-center">
+            <div className=" padding-vertical-default font-size-default font-color-secondary font-weight-400 ">
+              {src?.title}
+            </div>
 
-        <div
-          className=" inherit-parent-width 
+            <div className=" padding-vertical-default font-size-medium font-color-secondary">
+              {src?.description}
+            </div>
+          </div>
+
+          <div
+            className=" inherit-parent-width 
       display-flex flex-align-items-center flex-justify-content-center"
-        >
-          <AudioPlayer src={src?.audioUrl} duration={src?.duration} />
+          >
+            <AudioPlayer src={src?.audioUrl} duration={src?.duration} />
+          </div>
         </div>
       </div>
     </div>
@@ -248,10 +264,10 @@ const AudioPlayer = (props) => {
           <div
             className=" padding-left-default padding-right-default  cursor-pointer"
             onClick={() => {
-              setCurrentTime((currentTime) => currentTime - 10);
+              audio.current.currentTime = audio.current.currentTime - 10;
             }}
           >
-            <RewindIcon height="45px" width="45px" />
+            <RewindIcon height="40px" width="40px" />
           </div>
 
           {!loading && play && (
@@ -279,10 +295,10 @@ const AudioPlayer = (props) => {
           <div
             className=" padding-left-default padding-right-default cursor-pointer"
             onClick={() => {
-              setCurrentTime((currentTime) => currentTime + 10);
+              audio.current.currentTime = audio.current.currentTime + 10;
             }}
           >
-            <ForwardIcon height="45px" width="45px" />
+            <ForwardIcon height="40px" width="40px" />
           </div>
         </div>
       </div>

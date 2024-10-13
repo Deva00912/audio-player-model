@@ -5,27 +5,38 @@ import { LockIcon } from "../../Assets/Icon";
 export default function PlanCard(props) {
   return (
     <div
-      className={` display-flex height-10-percentage overflow-hidden border-radius-default  ${props?.className}`}
+      className={`border-radius-default ${props?.className}`}
       style={{
         width: "160px",
         height: "160px",
-        backgroundImage: `url(${props.data?.imageUrl})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        objectFit: "fill",
         position: "relative",
       }}
       onClick={props.onClick}
     >
+      <img
+        style={{
+          borderRadius: "8px",
+          width: "160px",
+          height: "160px",
+          objectFit: "cover",
+        }}
+        src={props.data?.imageUrl}
+        alt="test"
+      />
       <LockButton />
       <div
         className=" display-flex flex-direction-column position-absolute bottom-0"
         style={{ width: "160px" }}
       >
-        <div className=" padding-smaller font-size-medium font-color-white letter-spacing-4-percentage">
+        <div className=" padding-left-default padding-right-default font-size-small font-color-white letter-spacing-4-percentage">
           {props.data.title}
         </div>
-        <div className=" padding-top-small padding-right-small padding-bottom-default padding-left-small font-size-smaller font-color-white text-overflow-ellipsis">
+        <div
+          style={{
+            fontSize: "8px",
+          }}
+          className="padding-top-smaller padding-right-default padding-bottom-default padding-left-default font-color-white text-overflow-ellipsis"
+        >
           {props.data.description}
         </div>
       </div>
